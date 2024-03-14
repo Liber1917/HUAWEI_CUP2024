@@ -33,7 +33,7 @@ def visualize_map(map_data):
     plt.show()
 
 # 读取地图文件
-with open('./maps/map1.txt', 'r') as f:
+with open('./maps/map2.txt', 'r') as f:
     map_data = [line.strip() for line in f]
 
 # 可视化地图数据

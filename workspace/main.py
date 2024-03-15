@@ -102,7 +102,7 @@ if __name__ == "__main__":
     for zhen_id in range(1, 15001):
         id = Input()
         for i in range(robot_num):
-            print("move", i, random.randint(0, 3))
+            print("move", i, random.randint(0, 3)) # 随机移动，这里提供了一个控制机器人移动的接口
             sys.stdout.flush()
         print("OK")
         sys.stdout.flush()

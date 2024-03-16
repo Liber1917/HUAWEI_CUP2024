@@ -37,7 +37,7 @@ def visualize_map(map_data):
 
 
 # 读取地图文件
-with open('./maps/map2.txt', 'r') as f:
+with open('./workspace/maps/map2.txt', 'r') as f:
     map_data = [line.strip() for line in f]  # 逐行读取文件内容，并去除每行末尾的换行符，并将每行字符串组成的列表赋值给变量map_data
 
 # 可视化地图数据
@@ -120,8 +120,10 @@ for coord in B_coordinates:
     x, y = coord
     # start=time.time()
     filled_coords = flood_fill(map_cpy, x, y)
+
     # visualize_value_table(filled_coords)
     # test.append(filled_coords)
+
     A_in_filled_coords = [coord for coord in filled_coords if coord in A_coordinates]
     filled_coords_list.append(A_in_filled_coords)
     # end=time.time()
@@ -168,10 +170,6 @@ def visualize_map_with_filled_areas(map_data, filled_coords_list):
     # 显示图形
     plt.gca().set_aspect('equal', adjustable='box')
     plt.show()
-
-
-
-
 
 
 

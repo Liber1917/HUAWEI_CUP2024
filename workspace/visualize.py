@@ -209,8 +209,8 @@ with open('workspace/output.txt', 'r') as file:
 创建基因片段
 选择前五个泊位作为停靠点(测试用)
 '''
-pop = []
-shipped_berth = [(point[0], point[1]) for point in B_coordinates[:5]]
+# pop = []
+# shipped_berth = [(point[0], point[1]) for point in B_coordinates[:5]]
 # for index, coord in enumerate(A_coordinates):
 #     for berth in shipped_berth:
 #         accessible_berth = []

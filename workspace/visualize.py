@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import time
-
+from ship_chosen import country_road
 def visualize_map(map_data):
     # 定义地图字符与颜色的映射关系
     color_map = {'#': 'black', '.': 'white', '*': 'blue', 'A': 'green', 'B': 'orange'}
@@ -83,7 +83,6 @@ def flood_fill(matrix, x, y, target_sign='.'):
     return value_table
 
 
-
 # 将map_data转换为矩阵
 map_matrix = np.array([list(row) for row in map_data])
 # 复制地图矩阵
@@ -116,22 +115,45 @@ filled_coords_list = []  # 用于存储所有的填充坐标
 test = []
 
 
+def draw_map(map_data, **kwargs):
+    fig, ax = plt.subplots()
+
+    # 绘制地图
+    ax.imshow(map_data, cmap='terrain', interpolation='nearest')
+
+    # 填充矩形格子
+    for i in range(len(map_data)):
+        for j in range(len(map_data[i])):
+            cell = map_data[i][j]
+            color = kwargs.get(cell, 'green')
+            plt.fill([i, i+1, i+1, i], [len(map_data) - j, len(map_data) - j, len(map_data) - (j+1), len(map_data) - (j+1)], color=color)
+            # ax.text(i, j, str(map_data[i][j]), color='white', ha='center', va='center')
+
+    plt.axis('off')
+    plt.show()
+
+
 for coord in B_coordinates:
     x, y = coord
     # start=time.time()
     filled_coords = flood_fill(map_cpy, x, y)
     # visualize_value_table(filled_coords)
     # test.append(filled_coords)
-    A_in_filled_coords = [coord for coord in filled_coords if coord in A_coordinates]
+    A_in_filled_coords = [coord for coord in A_coordinates if filled_coords[coord[0]][coord[1]] > 0]
     filled_coords_list.append(A_in_filled_coords)
     # end=time.time()
     # print(end-start)
+    print([x, y], "\n", A_in_filled_coords)
+    path_data = country_road(filled_coords, [x, y], A_in_filled_coords[0])
+    print(path_data)
+    # draw_map(filled_coords, **{"-1": 'black', "0": 'white'})
+    break
 
 
 # for index, filled_coords in enumerate(filled_coords_list):
 #     print(f"Filled Area {index + 1} Size: {len(filled_coords)}")
 
-def visualize_map_with_filled_areas(map_data, filled_coords_list):
+def visualize_map_with_filled_areas(map_data, filled_coords_list, **kwargs):
     # 定义地图字符与颜色的映射关系
     color_map = {'#': 'black', '.': 'white', '*': 'blue', 'A': 'green', 'B': 'orange', 'x': 'red'}  # 添加 'x': 'red'
 

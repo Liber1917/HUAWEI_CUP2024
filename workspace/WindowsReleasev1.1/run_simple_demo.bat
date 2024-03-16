@@ -1,1 +1,1 @@
-.\PreliminaryJudge.exe -m maps\map1.txt .\Demo\main.exe
+.\PreliminaryJudge.exe -m maps\map2.txt .\Demo\main.exe -d output.txt

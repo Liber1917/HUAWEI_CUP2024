@@ -1,1 +1,1 @@
-.\PreliminaryJudge.exe -m maps\map1.txt "python main.py"
+.\PreliminaryJudge.exe -m maps\map2.txt "python main.py" -d output.txt

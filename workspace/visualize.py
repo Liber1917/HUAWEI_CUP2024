@@ -100,7 +100,7 @@ for i, coord in enumerate(B_coordinates):
         selected_B_coordinates.append(coord)
 B_coordinates = selected_B_coordinates
 
-print(len(B_coordinates))
+# print(len(B_coordinates))
 # print(B_coordinates)
 
 filled_coords_list = []  # 用于存储所有的填充坐标
@@ -116,6 +116,7 @@ for coord in B_coordinates:
     # test.append(filled_coords)
 
     A_in_filled_coords = [coord for coord in filled_coords if coord in A_coordinates]
+    # print(len(A_in_filled_coords))
     filled_coords_list.append(A_in_filled_coords)
     # end=time.time()
     # print(end-start)
@@ -164,3 +165,58 @@ def visualize_map_with_filled_areas(map_data, filled_coords_list):
 # 可视化地图数据及填充区域
 # visualize_map_with_filled_areas(map_data, test)
 ###################################################################
+
+'''
+通过txt模拟判题器回传
+'''
+class back_info:
+    def __init__(self) -> None:
+        self.tickInfo = []
+        self.cargoNum = 0
+        self.cargoInfo = []
+        self.robotInfo = []
+        self.shipInfo = []
+
+back_info = back_info()
+# 打开文件
+with open('workspace/output.txt', 'r') as file:
+    # 读取第一行
+    first_line = next(file)
+    back_info.tickInfo.append(first_line.strip())  # 将第一行添加到 tickInfo 中
+
+    # 逐行读取文件内容
+    for line in file:
+        line = line.strip()  # 移除行首和行尾的空白字符
+
+        if line == 'OK':
+            break
+
+        space_count = line.count(' ')  # 计算空格的数量
+
+        if space_count == 0:
+            back_info.cargoNum = int(line)  # 直接将整行转换为整数并赋给 cargoNum
+        elif space_count == 2:
+            # 将每个 item 转换为整数或浮点数并添加到 cargoInfo 中
+            back_info.cargoInfo.append([int(x) if x.isdigit() else float(x) for x in line.split()])
+        elif space_count == 3:
+            back_info.robotInfo.append([int(x) if x.isdigit() else float(x) for x in line.split()])
+        elif space_count == 1:
+            back_info.shipInfo.append([int(x) if x.isdigit() else float(x) for x in line.split()])
+
+
+'''
+检查洪水通路中的机器人
+创建基因片段
+选择前五个泊位作为停靠点(测试用)
+'''
+pop = []
+shipped_berth = [(point[0], point[1]) for point in B_coordinates[:5]]
+# for index, coord in enumerate(A_coordinates):
+#     for berth in shipped_berth:
+#         accessible_berth = []
+#         if berth in filled_coords_list[index] and coord in filled_coords_list[index]:
+#             accessible_berth.append(berth)
+#         else:
+#             pop.append(0)
+# for index, coord in shipped_berth:
+#     for i in A_coordinates:

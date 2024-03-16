@@ -131,7 +131,6 @@ for coord in B_coordinates:
 
     # visualize_value_table(filled_coords)
     # test.append(filled_coords)
-<<<<<<< HEAD
     A_in_filled_coords = [coord for coord in A_coordinates if filled_coords[coord[0]][coord[1]] > 0]
     filled_coords_list.append(A_in_filled_coords)
     # end=time.time()
@@ -142,7 +141,6 @@ for coord in B_coordinates:
     # draw_map(filled_coords, **{"-1": 'black', "0": 'white'})
     break
 
-<<<<<<< HEAD
 
 # for index, filled_coords in enumerate(filled_coords_list):
 #     print(f"Filled Area {index + 1} Size: {len(filled_coords)}")

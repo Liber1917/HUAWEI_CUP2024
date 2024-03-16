@@ -49,7 +49,7 @@ def visualize_value_table(value_table):
     plt.show()
 
 
-def flood_fill(matrix, x, y, target_sign='.'):
+def flood_fill(matrix, x, y): # 对通路实施洪水填充算法
     if x < 0 or y < 0 or x >= len(matrix[0]) or y >= len(matrix):
         return
 
@@ -88,14 +88,6 @@ def flood_fill(matrix, x, y, target_sign='.'):
 map_matrix = np.array([list(row) for row in map_data])
 # 复制地图矩阵
 map_cpy = np.copy(map_matrix)
-# print(map_cpy[4][1]=='.')
-
-# 使用np.argwhere()一次性找到字符'A'和'B'的坐标
-# A_coordinates = np.argwhere(map_matrix == 'A')
-
-# B_indices = np.where(map_matrix == 'B')
-# B_coordinates = list(zip(B_indices[0], B_indices[1]))
-
 
 # 从港口向外灌水
 A_indices = np.where(map_matrix == 'A')
@@ -113,8 +105,7 @@ print(len(B_coordinates))
 
 filled_coords_list = []  # 用于存储所有的填充坐标
 
-test = []
-
+test = [] # 用于存储所有的填充坐标的值表
 
 for coord in B_coordinates:
     x, y = coord
@@ -129,10 +120,7 @@ for coord in B_coordinates:
     # end=time.time()
     # print(end-start)
 
-
-# for index, filled_coords in enumerate(filled_coords_list):
-#     print(f"Filled Area {index + 1} Size: {len(filled_coords)}")
-
+##########################填充可视化###################################
 def visualize_map_with_filled_areas(map_data, filled_coords_list):
     # 定义地图字符与颜色的映射关系
     color_map = {'#': 'black', '.': 'white', '*': 'blue', 'A': 'green', 'B': 'orange', 'x': 'red'}  # 添加 'x': 'red'
@@ -175,3 +163,4 @@ def visualize_map_with_filled_areas(map_data, filled_coords_list):
 
 # 可视化地图数据及填充区域
 # visualize_map_with_filled_areas(map_data, test)
+###################################################################

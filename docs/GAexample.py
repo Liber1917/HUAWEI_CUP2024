@@ -29,22 +29,22 @@ def fitnessget(pred):
 
 # 选择函数，根据适应度进行选择
 def select(pop, fitness):
-    idx = np.random.choice(np.arange(pop_size), size=pop_size, replace=True, p=fitness/fitness.sum())
+    idx = np.random.choice(np.arange(pop_size), size=pop_size, replace=True, p=fitness/fitness.sum()) # 根据适应度进行随机选择，适应度高的被选中的概率大
     return pop[idx]
 
 # 交叉操作
 def change(parent, pop):
-    if np.random.rand() < PC:
-        i_ = np.random.randint(0, pop_size, size=1)
-        cross_points = np.random.randint(0, 2, size=DNA_SIZE).astype(bool)
-        parent[cross_points] = pop[i_, cross_points]
+    if np.random.rand() < PC: # 随机数小于某个交叉概率PC，则执行交叉操作
+        i_ = np.random.randint(0, pop_size, size=1) # 随机选择另一个个体作为交叉对象
+        cross_points = np.random.randint(0, 2, size=DNA_SIZE).astype(bool) # 随机生成数组，元素表示交叉点位置
+        parent[cross_points] = pop[i_, cross_points] # 基选中因复制到当前个体，实现交叉
     return parent
 
 # 变异操作
 def variation(child, pm):
     for point in range(DNA_SIZE):
         if np.random.rand() < pm:
-            child[point] = 1 if child[point] == 0 else 0
+            child[point] = 1 if child[point] == 0 else 0 # 随机数小于某个变异概率pm，则执行变异操作(取反)
     return child
 
 # 初始化种群
@@ -62,7 +62,7 @@ for i in range(N_GENERATIONS):
     fitness = fitnessget(F_values)
 
     # 记录最大值及对应的DNA
-    if i == 0:
+    if i == 0: # 第一代直接记录
         max = np.max(F_values)
         max_DNA = pop[np.argmax(F_values), :]
 

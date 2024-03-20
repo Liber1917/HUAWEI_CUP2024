@@ -22,11 +22,12 @@ robot = [Robot() for _ in range(robot_num)]
 
 
 class Berth:
-    def __init__(self, x=0, y=0, transport_time=0, loading_speed=0):
+    def __init__(self, x=0, y=0, transport_time=0, loading_speed=0, flood_table=None):
         self.x = x
         self.y = y
         self.transport_time = transport_time
         self.loading_speed = loading_speed
+        self.flood_table = flood_table
 
 
 berth = [Berth() for _ in range(berth_num)]

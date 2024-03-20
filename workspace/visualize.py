@@ -1,3 +1,4 @@
+#  -*-  codeing  =  utf-8  -*-
 import matplotlib.pyplot as plt
 import numpy as np
 import time
@@ -145,43 +146,43 @@ for coord in B_coordinates:
 # for index, filled_coords in enumerate(filled_coords_list):
 #     print(f"Filled Area {index + 1} Size: {len(filled_coords)}")
 
-def visualize_map_with_filled_areas(map_data, filled_coords_list, **kwargs):
-    # 定义地图字符与颜色的映射关系
-    color_map = {'#': 'black', '.': 'white', '*': 'blue', 'A': 'green', 'B': 'orange', 'x': 'red'}  # 添加 'x': 'red'
+# def visualize_map_with_filled_areas(map_data, filled_coords_list, **kwargs):
+#     # 定义地图字符与颜色的映射关系
+#     color_map = {'#': 'black', '.': 'white', '*': 'blue', 'A': 'green', 'B': 'orange', 'x': 'red'}  # 添加 'x': 'red'
 
-    # 创建一个新的图形
-    plt.figure(figsize=(8, 8))
+#     # 创建一个新的图形
+#     plt.figure(figsize=(8, 8))
 
-    # 循环遍历地图数据并绘制每个单元格
-    for y in range(len(map_data)):
-        for x in range(len(map_data[y])):
-            # 获取当前单元格的字符
-            cell = map_data[y][x]
+#     # 循环遍历地图数据并绘制每个单元格
+#     for y in range(len(map_data)):
+#         for x in range(len(map_data[y])):
+#             # 获取当前单元格的字符
+#             cell = map_data[y][x]
 
-            # 获取当前单元格的颜色
-            color = color_map.get(cell, 'white')
+#             # 获取当前单元格的颜色
+#             color = color_map.get(cell, 'white')
 
-            # 绘制一个矩形作为当前单元格，并设置颜色
-            plt.fill([x, x+1, x+1, x], [len(map_data) - y, len(map_data) - y, len(map_data) - (y+1), len(map_data) - (y+1)], color=color)
+#             # 绘制一个矩形作为当前单元格，并设置颜色
+#             plt.fill([x, x+1, x+1, x], [len(map_data) - y, len(map_data) - y, len(map_data) - (y+1), len(map_data) - (y+1)], color=color)
 
-    # 标记填充的区域为红色
-    for filled_coords in filled_coords_list:
-        for coord in filled_coords:
-            x, y = coord
-            plt.fill([x, x+1, x+1, x], [len(map_data) - y, len(map_data) - y, len(map_data) - (y+1), len(map_data) - (y+1)], color='red')
+#     # 标记填充的区域为红色
+#     for filled_coords in filled_coords_list:
+#         for coord in filled_coords:
+#             x, y = coord
+#             plt.fill([x, x+1, x+1, x], [len(map_data) - y, len(map_data) - y, len(map_data) - (y+1), len(map_data) - (y+1)], color='red')
 
-    # 设置图形的标题和轴标签
-    plt.title('Map Visualization with Filled Areas')
-    plt.xlabel('X')
-    plt.ylabel('Y')
+#     # 设置图形的标题和轴标签
+#     plt.title('Map Visualization with Filled Areas')
+#     plt.xlabel('X')
+#     plt.ylabel('Y')
 
-    # 设置坐标轴刻度范围
-    plt.xlim(0, len(map_data[0]))
-    plt.ylim(0, len(map_data))
+#     # 设置坐标轴刻度范围
+#     plt.xlim(0, len(map_data[0]))
+#     plt.ylim(0, len(map_data))
 
-    # 显示图形
-    plt.gca().set_aspect('equal', adjustable='box')
-    plt.show()
+#     # 显示图形
+#     plt.gca().set_aspect('equal', adjustable='box')
+#     plt.show()
 
 
 
@@ -243,3 +244,61 @@ with open('workspace/output.txt', 'r') as file:
 #             pop.append(0)
 # for index, coord in shipped_berth:
 #     for i in A_coordinates:
+
+
+
+
+############################NSGA2接口测试#######################################
+import random
+import math
+
+n = 200
+robot_num = 10
+berth_num = 10  # 泊位
+boat_num = 5
+N = 210
+
+
+class Robot:
+    def __init__(self, startX=0, startY=0, goods=0, status=0, mbx=0, mby=0):
+        self.x = startX
+        self.y = startY
+        self.goods = goods # 携带货物
+        self.status = status # 状态
+        self.mbx = mbx # 目标位置
+        self.mby = mby
+
+
+robot = [Robot() for _ in range(robot_num)] # 机器人实例init
+
+
+class Berth:
+    def __init__(self, x=0, y=0, transport_time=0, loading_speed=0, flood_table=None):
+        self.x = x
+        self.y = y
+        self.transport_time = transport_time
+        self.loading_speed = loading_speed
+        self.flood_table = flood_table
+
+
+
+berth = [Berth() for _ in range(berth_num)] # 泊位实例init
+
+class Cargo:
+    def __init__(self, x, y, worth):
+        self.targeted = 0
+        self.x = x
+        self.y = y
+        self.worth = worth
+
+
+money = 0
+id = 0
+ch = []
+gds = [[0 for _ in range(N)] for _ in range(N)]
+all_Cargo = []
+
+cargoNum = 50
+cargo = [Cargo() for _ in range(cargoNum)]
+
+gene_list = [robot, berth, cargo]
